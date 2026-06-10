@@ -112,4 +112,6 @@ Run the automated API tests using Newman:
 ```bash
 npm run test:postman
 ```
-The tests are located in the `qa/` folder. A detailed HTML report is generated at `qa/report.html` after execution.
+The tests are located in the `qa/` folder. Detailed reports are generated after execution:
+- **HTML Report**: `qa/report.html`
+- **PDF Report**: `qa/report.pdf`
