@@ -23,6 +23,23 @@ test.describe('Pokémon App Automation Test', () => {
     await expect(page.locator('img')).toBeVisible({ timeout: 30000 });
   });
 
+  test('Skenario Sukses - Pagination', async ({ page }) => {
+    await page.goto(URL_WEB);
+
+    // 1. Cek halaman pertama
+    await expect(page.locator('[data-testid="page-number"]')).toContainText('Halaman ke-1');
+
+    // 2. Klik Next
+    await page.click('text=Next');
+
+    // 3. Cek apakah halaman berubah
+    await expect(page.locator('[data-testid="page-number"]')).toContainText('Halaman ke-2');
+    
+    // 4. Klik Previous
+    await page.click('text=Previous');
+    await expect(page.locator('[data-testid="page-number"]')).toContainText('Halaman ke-1');
+  });
+
   test('Skenario Gagal - Pencarian Kosong', async ({ page }) => {
     await page.goto(URL_WEB);
 

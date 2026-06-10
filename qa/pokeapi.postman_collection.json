@@ -39,15 +39,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://pokeapi.co/api/v2/pokemon/pikachu",
-					"protocol": "https",
+					"raw": "{{baseUrl}}/pokemon/pikachu",
 					"host": [
-						"pokeapi",
-						"co"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"api",
-						"v2",
 						"pokemon",
 						"pikachu"
 					]
@@ -79,15 +75,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://pokeapi.co/api/v2/ability/static",
-					"protocol": "https",
+					"raw": "{{baseUrl}}/ability/static",
 					"host": [
-						"pokeapi",
-						"co"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"api",
-						"v2",
 						"ability",
 						"static"
 					]
@@ -126,15 +118,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://pokeapi.co/api/v2/pokemon?limit=20",
-					"protocol": "https",
+					"raw": "{{baseUrl}}/pokemon?limit=20",
 					"host": [
-						"pokeapi",
-						"co"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"api",
-						"v2",
 						"pokemon"
 					],
 					"query": [
@@ -177,21 +165,86 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://pokeapi.co/api/v2/type/fire",
-					"protocol": "https",
+					"raw": "{{baseUrl}}/type/fire",
 					"host": [
-						"pokeapi",
-						"co"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"api",
-						"v2",
 						"type",
 						"fire"
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Negative - Invalid Pokemon Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/pokemon/non-existent-pokemon-12345",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pokemon",
+						"non-existent-pokemon-12345"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Negative - Invalid ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/pokemon/999999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pokemon",
+						"999999"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://pokeapi.co/api/v2",
+			"type": "string"
 		}
 	]
 }

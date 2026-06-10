@@ -86,7 +86,42 @@ Our test suite covers:
 - **Positive Scenarios**: Home page loading, search functionality, pagination, and detail page navigation.
 - **Negative Scenarios**: Proper handling of "not found" states for invalid searches.
 
-*Last test run: 11/12 tests passed (minor intermittent timeout on extreme latency).*
+---
+
+## 🧪 API Testing with Newman
+
+We use Newman (Postman CLI) for API automation testing.
+
+### Running API Tests
+
+1. Navigate to the project folder:
+   ```bash
+   cd pokemon-app
+   ```
+
+2. Run the Postman collection:
+   ```bash
+   npm run test:postman
+   ```
+
+3. View reports:
+   - HTML Report: `qa/report.html`
+   - PDF Report: `qa/report.pdf`
+
+---
+
+## 🏗 Architecture Diagram
+
+```mermaid
+graph TD
+    User[User/Tester] --> WebApp[React Web App]
+    User --> Newman[Newman CLI]
+    WebApp --> PokeAPI[PokeAPI.co]
+    Newman --> PokeAPI
+    Newman --> Reports[HTML/PDF Reports]
+    GitHubActions[GitHub Actions] --> Newman
+    GitHubActions --> Playwright[Playwright E2E]
+```
 
 ---
 
