@@ -38,6 +38,11 @@ Ensure you have [Node.js](https://nodejs.org/) installed (v18 or higher recommen
    npm install
    ```
 
+3. Install Playwright browsers:
+   ```bash
+   npx playwright install
+   ```
+
 ### Running Development Server
 
 Start the local development server:
