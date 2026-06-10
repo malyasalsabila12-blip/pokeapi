@@ -7,6 +7,55 @@
 	},
 	"item": [
 		{
+			"name": "Metadata - Dynamic Variables",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"Running request at: \" + pm.variables.replaceIn('{{$timestamp}}'));",
+							"pm.variables.set(\"requestId\", pm.variables.replaceIn('{{$guid}}'));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Request ID was generated\", function () {",
+							"    pm.expect(pm.variables.get(\"requestId\")).to.not.be.undefined;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/pokemon?limit=1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pokemon"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Pikachu",
 			"event": [
 				{
@@ -29,6 +78,29 @@
 							"pm.test(\"Has correct ID\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.id).to.eql(25);",
+							"});",
+							"",
+							"pm.test(\"Data type validation\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.be.a('number');",
+							"    pm.expect(jsonData.name).to.be.a('string');",
+							"    pm.expect(jsonData.abilities).to.be.an('array');",
+							"    pm.expect(jsonData.weight).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"JSON Schema Validation\", function () {",
+							"    var schema = {",
+							"        \"type\": \"object\",",
+							"        \"required\": [\"id\", \"name\", \"abilities\", \"weight\", \"height\"],",
+							"        \"properties\": {",
+							"            \"id\": { \"type\": \"number\" },",
+							"            \"name\": { \"type\": \"string\" },",
+							"            \"weight\": { \"type\": \"number\" },",
+							"            \"height\": { \"type\": \"number\" },",
+							"            \"abilities\": { \"type\": \"array\" }",
+							"        }",
+							"    };",
+							"    pm.response.to.have.jsonSchema(schema);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -234,6 +306,37 @@
 					"path": [
 						"pokemon",
 						"999999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Negative - Empty Parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should handle empty pokemon parameter with 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/pokemon/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pokemon",
+						""
 					]
 				}
 			},

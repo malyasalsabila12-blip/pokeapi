@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test:postman": "newman run qa/pokeapi.postman_collection.json -r cli,htmlextra --reporter-htmlextra-export qa/report.html && npx tsx qa/generate-pdf.ts"
+    "test:postman": "npx tsx qa/run-tests.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",
