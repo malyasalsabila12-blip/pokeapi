@@ -93,3 +93,18 @@ Our test suite covers:
 - `tests/pokemon.spec.ts`: Playwright E2E test suite.
 - `playwright.config.ts`: Configuration for Playwright testing.
 - `vite.config.ts`: Configuration for the Vite build tool.
+
+### Running E2E Tests (Playwright)
+
+Run the automated UI tests:
+```bash
+npx playwright test
+```
+
+### Running API Tests (Postman/Newman)
+
+Run the automated API tests using Newman:
+```bash
+npm run test:postman
+```
+The tests are located in the `qa/` folder. A detailed HTML report is generated at `qa/report.html` after execution.
