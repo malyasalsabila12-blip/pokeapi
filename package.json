@@ -1,14 +1,11 @@
 {
   "name": "pokemon-app",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "test:postman": "npx tsx qa/run-tests.ts"
+    "build": "tsc && vite build",
+    "test:postman": "newman run api-testing/pokemon.collection.json -e api-testing/pokemon.env.json -r htmlextra --reporter-htmlextra-export qa/report.html"
   },
   "dependencies": {
     "clsx": "^2.1.1",
